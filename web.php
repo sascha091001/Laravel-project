@@ -16,6 +16,9 @@ Route::get('/', function () {
 });
 
 //Route::resource('/driver', 'DriverController');
-Route::get('/driver', 'Driver1Controller@index')->name('list');
-Route::get('/driver/{id}', 'Driver1Controller@show')->name('show');
+Route::get('/drivers', 'Driver1Controller@index')->name('list');
+Route::get('/driver/{id}/info', 'Driver1Controller@show')->name('show');
 Route::resource('/review', 'ReviewController');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

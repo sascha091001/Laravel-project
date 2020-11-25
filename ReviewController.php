@@ -35,10 +35,15 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
+		$this->validate($request, [
+			'text' => 'required|max:255',
+		]);
+		
 		$review = new Review;
 		
         $review->text = $request->text;
 		$review->driver_id = $request->driver_id;
+		$review->user_id = $request->user_id;
 		
 		$review->save();
 		
@@ -64,7 +69,9 @@ class ReviewController extends Controller
      */
     public function edit($id)
     {
-        //
+        $review = Review::find($id);
+		
+		return view('drivers.updateRev', ['review' => $review]);
     }
 
     /**
@@ -76,7 +83,16 @@ class ReviewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+		$this->validate($request, [
+			'text' => 'required|max:255',
+		]);
+		
+        $review = Review::find($id);
+		$review->text = $request->text;
+		 
+		$review->save();
+		
+		return redirect()->route('show', $review->driver_id);
     }
 
     /**
