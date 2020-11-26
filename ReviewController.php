@@ -47,7 +47,7 @@ class ReviewController extends Controller
 		
 		$review->save();
 		
-		return redirect()->route('show', $review->driver_id);
+		return redirect()->route('showDriverInfo', $review->driver_id);
     }
 
     /**
@@ -92,7 +92,7 @@ class ReviewController extends Controller
 		 
 		$review->save();
 		
-		return redirect()->route('show', $review->driver_id);
+		return redirect()->route('showDriverInfo', $review->driver_id);
     }
 
     /**
@@ -106,6 +106,6 @@ class ReviewController extends Controller
         $review = Review::find($id);
 		$review->delete();
 		
-		return redirect()->route('show', $review->driver_id);
+		return redirect()->route('showDriverInfo', $review->driver_id);
     }
 }

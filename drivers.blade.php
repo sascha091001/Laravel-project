@@ -16,13 +16,15 @@
   <!-- Текущие задачи -->
   @if (count($drivers) > 0)
     <div class = "container mt-5">
+		<h2 class = "text-center mb-5"> Водители </h2>
+		
         <table class="table table-striped task-table">
 			<thead class="thead-dark">
 				<tr class = "text-center">
-					<th >ФИО</th>
+					<th>ФИО</th>
 					<th>Дата рождения</th>
 					<th>Опыт, лет</th>
-					<th>Зарплата, руб</th>
+					<th>Отзывы</th>
 				</tr>
 			</thead>
 
@@ -30,7 +32,7 @@
             @foreach ($drivers as $driver)
               <tr class = "text-center">
 				<td> 
-					<div> <a href = "{{route('show', [$driver->id])}}"> {{ $driver->FIO }} </a> </div>
+					<div> <a href = "{{route('showDriverInfo', [$driver->id])}}"> {{ $driver->FIO }} </a> </div>
 				</td>
 				
 				<td>
@@ -42,7 +44,7 @@
 				</td>
 				
 				<td>
-					<p> <b> {{ $driver->salary }} </b> </p>
+					<span class="badge badge-primary badge-pill"> {{ count($driver->reviews) }} </span>
 				</td>
               </tr>
             @endforeach

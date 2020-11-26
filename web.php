@@ -15,9 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::resource('/driver', 'DriverController');
-Route::get('/drivers', 'Driver1Controller@index')->name('list');
-Route::get('/driver/{id}/info', 'Driver1Controller@show')->name('show');
+Route::get('/drivers', 'MainController@indexDrivers')->name('listDrivers');
+Route::get('/driver/{id}/info', 'MainController@showDriver')->name('showDriverInfo');
+Route::get('/routes', 'MainController@indexRoutes')->name('listRoutes');
+Route::get('/route/{id}/info', 'MainController@showRoute')->name('showRouteInfo');
+Route::get('/cars', 'MainController@indexCars')->name('listCars');
+Route::get('/car/{id}/info', 'MainController@showCar')->name('showCarInfo');
+
 Route::resource('/review', 'ReviewController');
 Auth::routes();
 

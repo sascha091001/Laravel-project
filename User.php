@@ -30,4 +30,8 @@ class User extends Authenticatable
 	public function Reviews(){
 		return $this->belongsTo('App\Review', 'user_id');
 	}
+	
+	public function Driver(){
+		return $this->belongsTo('App\Driver', 'drivers_id');
+	}
 }
