@@ -1,44 +1,44 @@
 @extends('layouts.admin')
 
 @section('title')
-	Автомобили
+	Отзывы
 @endsection
 
 @section('content')
 
-  @if (count($cars) > 0)
+  @if (count($reviews) > 0)
     <div class = "container mt-5">
-		<h2 class = "text-center mb-5"> Автомобили </h2>
+		<h2 class = "text-center mb-5"> Отзывы </h2>
 		
         <table class="table table-striped task-table">
 			<thead class="thead-dark">
 				<tr class = "text-center">
-					<th>Номер</th>
-					<th>Модель</th>
-					<th>Состояние</th>
+					<th>Кем создан</th>
+					<th>Текст</th>
+					<th>Водитель</th>
 					<th>Действия</th>
 				</tr>
 			</thead>
 
           <tbody>
-            @foreach ($cars as $car)
+            @foreach ($reviews as $review)
               <tr class = "text-center">				
 				<td>
-					<p> <b> {{ $car->number }} </b> </p>
+					<p> <b> {{ $review->user->name }} </b> </p>
 				</td>
 				
 				<td>
-					<p> <b> {{ $car->model }} </b> </p>
+					<p class = "text-success"> <b> {{ $review->text }} </b> </p>
 				</td>
 				
 				<td>
-					<p class = "text-success"> <b> {{ $car->condition }} </b> </p>
+					<p> <b> {{ $review->driver->FIO }} </b> </p>
 				</td>
 
 				<td>
-					<a href = "{{ route('cars.show', $car->id) }}" class = "btn btn-success"> См. </a>
-					<a href = "{{ route('cars.edit', $car->id) }}" class = "btn btn-warning"> Обн. </a>
-					<form action="{{route('cars.destroy', $car->id)}}" method="POST" style = "display: contents">
+					<a href = "{{ route('reviews.show', $review->id) }}" class = "btn btn-success"> См. </a>
+					<a href = "{{ route('reviews.edit', $review->id) }}" class = "btn btn-warning"> Обн. </a>
+					<form action="{{route('reviews.destroy', $review->id)}}" method="POST" style = "display: contents">
 						{{ csrf_field() }}
 						{{ method_field('DELETE') }}
 
@@ -55,11 +55,11 @@
 	
 	<div class = "row">
 			<div class = "col-6">
-				{{ $cars->links('userpages.paginate') }}
+				{{ $reviews->links('userpages.paginate') }}
 			</div>
 			
 			<div class = "col-6">
-				<a href = "{{ route('cars.create') }}" class = "btn btn-primary" style = "float: right"> Добавить автомобиль </a>
+				<a href = "{{ route('reviews.create') }}" class = "btn btn-primary" style = "float: right"> Создать отзыв </a>
 			</div>
 		</div>
 	</div>

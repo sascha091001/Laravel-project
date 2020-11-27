@@ -1,44 +1,44 @@
 @extends('layouts.admin')
 
 @section('title')
-	Автомобили
+	Пользователи
 @endsection
 
 @section('content')
 
-  @if (count($cars) > 0)
+  @if (count($users) > 0)
     <div class = "container mt-5">
-		<h2 class = "text-center mb-5"> Автомобили </h2>
+		<h2 class = "text-center mb-5"> Пользователи</h2>
 		
         <table class="table table-striped task-table">
 			<thead class="thead-dark">
 				<tr class = "text-center">
-					<th>Номер</th>
-					<th>Модель</th>
-					<th>Состояние</th>
+					<th>Имя</th>
+					<th>Почта</th>
+					<th>Тип</th>
 					<th>Действия</th>
 				</tr>
 			</thead>
 
           <tbody>
-            @foreach ($cars as $car)
+            @foreach ($users as $user)
               <tr class = "text-center">				
 				<td>
-					<p> <b> {{ $car->number }} </b> </p>
+					<p> <b> {{ $user->name }} </b> </p>
 				</td>
 				
 				<td>
-					<p> <b> {{ $car->model }} </b> </p>
+					<p class = "text-success"> <b> {{ $user->email }} </b> </p>
 				</td>
 				
 				<td>
-					<p class = "text-success"> <b> {{ $car->condition }} </b> </p>
+					<p> <b> {{ $user->type }} </b> </p>
 				</td>
 
 				<td>
-					<a href = "{{ route('cars.show', $car->id) }}" class = "btn btn-success"> См. </a>
-					<a href = "{{ route('cars.edit', $car->id) }}" class = "btn btn-warning"> Обн. </a>
-					<form action="{{route('cars.destroy', $car->id)}}" method="POST" style = "display: contents">
+					<a href = "{{ route('users.show', $user->id) }}" class = "btn btn-success"> См. </a>
+					<a href = "{{ route('users.edit', $user->id) }}" class = "btn btn-warning"> Обн. </a>
+					<form action="{{route('users.destroy', $user->id)}}" method="POST" style = "display: contents">
 						{{ csrf_field() }}
 						{{ method_field('DELETE') }}
 
@@ -55,11 +55,11 @@
 	
 	<div class = "row">
 			<div class = "col-6">
-				{{ $cars->links('userpages.paginate') }}
+				{{ $users->links('userpages.paginate') }}
 			</div>
 			
 			<div class = "col-6">
-				<a href = "{{ route('cars.create') }}" class = "btn btn-primary" style = "float: right"> Добавить автомобиль </a>
+				<a href = "{{ route('users.create') }}" class = "btn btn-primary" style = "float: right"> Добавить пользователя </a>
 			</div>
 		</div>
 	</div>

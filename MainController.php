@@ -64,4 +64,8 @@ class MainController extends Controller
         $arrival = Arrival::find($id);
 		return view('userpages.showArrival', ['arrival' => $arrival]);
     }
+	
+	public function admin(){
+		return view('adminpages.welcome');
+	}
 }

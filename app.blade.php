@@ -32,14 +32,20 @@
 				<a class="nav-link" href="{{ url('/') }}"> Домашняя страница <span class="sr-only">(current)</span></a>
 			  </li>
 			  <li class="nav-item">
-				<a class="nav-link" href = "{{ route('listDrivers') }}"> К водителям </a>
+					<a class="nav-link" href = "{{ route('listDrivers') }}"> Водители </a>
 			  </li>
 			  <li class="nav-item">
-				<a class="nav-link" href=" {{ route('listRoutes') }} "> К маршрутам </a>
+					<a class="nav-link" href=" {{ route('listRoutes') }} "> Маршруты </a>
 			  </li>
 			   <li class="nav-item">
-				<a class="nav-link" href=" {{ route('listCars') }}"> К авто </a>
+					<a class="nav-link" href=" {{ route('listCars') }}"> Авто </a>
 			  </li>
+			  
+			  @if (Auth::user() and Auth::user()->type == "Админ")
+			  <li class="nav-item active">
+				<a class="nav-link" href="{{ route('drivers.index') }}"> Страница администратора <span class="sr-only">(current)</span></a>
+			  </li>
+			  @endif
 			</ul>
 			
 			<ul class="nav navbar-nav navbar-right">
@@ -54,6 +60,10 @@
 								  <span class="sr-only">Toggle Dropleft</span>
 								</button>
 								<div class="dropdown-menu">
+									@if (Auth::user())
+										<p class = "text-danger ml-4"> <b> {{ Auth::user()->type }} </b> </p>
+										<hr>
+									@endif
 									<a class= "dropdown-item" href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         Выйти
                                     </a>
@@ -91,8 +101,7 @@
 					<div class="col-md-6 px-4">
 					   <h6> О компании </h6>
 					   <p>Мы на первом месте по грузоперевозке в России.</p>
-					   <a href="#" class="btn-footer"> Больше о нас </a><br>
-					   <a href="#" class="btn-footer"> Контакты </a>
+					   <a href="https://vk.com/alexandre091001" class="btn-footer"> Наш руководитель </a><br>
 					</div>
 				 </div>
 			  </div>
@@ -102,40 +111,30 @@
 					   <h6> Поддержать нас</h6>
 					   <div class="row ">
 						  <div class="col-md-6">
-							 <ul>
-								<li> <a href="#"> Home</a> </li>
-								<li> <a href="#"> About</a> </li>
-								<li> <a href="#"> Service</a> </li>
-								<li> <a href="#"> Team</a> </li>
-								<li> <a href="#"> Help</a> </li>
-								<li> <a href="#"> Contact</a> </li>
-							 </ul>
-						  </div>
-						  <div class="col-md-6 px-4">
-							 <ul>
-								<li> <a href="#"> Cab Faciliy</a> </li>
-								<li> <a href="#"> Fax</a> </li>
-								<li> <a href="#"> Terms</a> </li>
-								<li> <a href="#"> Policy</a> </li>
-								<li> <a href="#"> Refunds</a> </li>
-								<li> <a href="#"> Paypal</a> </li>
-							 </ul>
+							<p>Поддержать 5 за вебы)</p>
 						  </div>
 					   </div>
 					</div>
 					<div class="col-md-6 ">
 					   <h6> Новости</h6>
 					   <div class="social">
-						  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bell" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-							<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2z"/>
-							<path fill-rule="evenodd" d="M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
-						  </svg>
+							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bell" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2z"/>
+								<path fill-rule="evenodd" d="M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+							</svg>
+						  
+							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-display ml-3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								<path d="M5.75 13.5c.167-.333.25-.833.25-1.5h4c0 .667.083 1.167.25 1.5H11a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1h.75z"/>
+								<path fill-rule="evenodd" d="M13.991 3H2c-.325 0-.502.078-.602.145a.758.758 0 0 0-.254.302A1.46 1.46 0 0 0 1 4.01V10c0 .325.078.502.145.602.07.105.17.188.302.254a1.464 1.464 0 0 0 .538.143L2.01 11H14c.325 0 .502-.078.602-.145a.758.758 0 0 0 .254-.302 1.464 1.464 0 0 0 .143-.538L15 9.99V4c0-.325-.078-.502-.145-.602a.757.757 0 0 0-.302-.254A1.46 1.46 0 0 0 13.99 3zM14 2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h12c2 0 2-2 2-2V4c0-2-2-2-2-2z"/>
+							</svg>
+							
+							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-emoji-smile ml-3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+								<path fill-rule="evenodd" d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683z"/>
+								<path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+							</svg>
 					   </div>
-					   <form class="form-footer my-3">
-						  <input type="text"  placeholder="Искать ..." name="search">
-						  <input type="button" value="Go!" >
-					   </form>
-					   <p>Спасибо за то, что Вы с нами!</p>
+					   <p class = "mt-4">Спасибо за то, что Вы с нами!</p>
 					</div>
 				 </div>
 			  </div>
@@ -174,25 +173,25 @@ footer h6:after {
     left: 0;
     bottom: -20px;
 }
-     .btn-footer {
-                 color: grey;
-              
-                text-decoration: none;
-                border: 1px solid;
-                border-radius: 43px;
-                padding: 7px 30px;
-                line-height: 47px;
-     }
-     .btn-footer:hover {
-                
-                text-decoration: none;
-               
-     }
-    .form-footer input[type="text"] {
-        border: none;
-    border-radius: 16px 0 0 16px;
-    outline: none;
-    padding-left: 10px;
+ .btn-footer {
+			 color: grey;
+		  
+			text-decoration: none;
+			border: 1px solid;
+			border-radius: 43px;
+			padding: 7px 30px;
+			line-height: 47px;
+ }
+ .btn-footer:hover {
+			
+			text-decoration: none;
+		   
+ }
+.form-footer input[type="text"] {
+	border: none;
+border-radius: 16px 0 0 16px;
+outline: none;
+padding-left: 10px;
     
 }
 ::placeholder {

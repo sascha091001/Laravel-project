@@ -1,19 +1,11 @@
-  <!-- resources/views/tasks.blade.php -->
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title')
-	Список водителей
+	Водители
 @endsection
 
 @section('content')
 
-  <!-- Bootstrap шаблон... -->
- <div class = "container">
-  <!-- TODO: Текущие задачи -->
-
-  <!-- Форма создания задачи... -->
-
-  <!-- Текущие задачи -->
   @if (count($drivers) > 0)
     <div class = "container mt-5">
 		<h2 class = "text-center mb-5"> Водители </h2>
@@ -24,15 +16,16 @@
 					<th>ФИО</th>
 					<th>Дата рождения</th>
 					<th>Опыт, лет</th>
-					<th>Отзывы</th>
+					<th>Зарплата, руб.</th>
+					<th>Действия</th>
 				</tr>
 			</thead>
 
           <tbody>
             @foreach ($drivers as $driver)
-              <tr class = "text-center">
-				<td> 
-					<div> <a href = "{{route('showDriverInfo', [$driver->id])}}"> {{ $driver->FIO }} </a> </div>
+              <tr class = "text-center">				
+				<td>
+					<p> <b> {{ $driver->FIO }} </b> </p>
 				</td>
 				
 				<td>
@@ -44,13 +37,38 @@
 				</td>
 				
 				<td>
-					<span class="badge badge-primary badge-pill"> {{ count($driver->reviews) }} </span>
+					<p> <b> {{ $driver->salary }} </b> </p>
+				</td>
+
+				<td>
+					<a href = "{{ route('drivers.show', $driver->id) }}" class = "btn btn-success"> См. </a>
+					<a href = "{{ route('drivers.edit', $driver->id) }}" class = "btn btn-warning"> Обн. </a>
+					<form action="{{route('drivers.destroy', $driver->id)}}" method="POST" style = "display: contents">
+						{{ csrf_field() }}
+						{{ method_field('DELETE') }}
+
+						<button type="submit" class="btn btn-danger">
+							<i class="fa fa-search"></i>Удал.
+						</button>
+					</form>
 				</td>
               </tr>
             @endforeach
           </tbody>
         </table>
-  </div>	
+	@endif
+	
+	<div class = "row">
+			<div class = "col-6">
+				{{ $drivers->links('userpages.paginate') }}
+			</div>
+			
+			<div class = "col-6">
+				<a href = "{{ route('drivers.create') }}" class = "btn btn-primary" style = "float: right"> Добавить водителя </a>
+			</div>
+		</div>
+	</div>
+  </div>
   
   <style>
 	td{
@@ -68,5 +86,5 @@
 	}
   
   </style>
-   @endif
+
 @endsection
