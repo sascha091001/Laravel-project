@@ -13,4 +13,8 @@ class Driver extends Model
 	public function User(){
 		return $this->hasOne('App\User', 'drivers_id');
 	}
+	
+	public function Arrivals(){
+		return $this->hasMany('App\Arrival', 'driver_id');
+	}
 }

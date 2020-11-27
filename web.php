@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', 'MainController@index')->name('welcome-page');
 Route::get('/drivers', 'MainController@indexDrivers')->name('listDrivers');
 Route::get('/driver/{id}/info', 'MainController@showDriver')->name('showDriverInfo');
 Route::get('/routes', 'MainController@indexRoutes')->name('listRoutes');

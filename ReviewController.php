@@ -71,7 +71,7 @@ class ReviewController extends Controller
     {
         $review = Review::find($id);
 		
-		return view('drivers.updateRev', ['review' => $review]);
+		return view('userpages.updateRev', ['review' => $review]);
     }
 
     /**
