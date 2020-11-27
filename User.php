@@ -32,6 +32,6 @@ class User extends Authenticatable
 	}
 	
 	public function Driver(){
-		return $this->belongsTo('App\Driver', 'drivers_id');
+		return $this->belongsTo('App\Driver', 'driver_id');
 	}
 }

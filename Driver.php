@@ -11,7 +11,7 @@ class Driver extends Model
 	}
 	
 	public function User(){
-		return $this->hasOne('App\User', 'drivers_id');
+		return $this->hasOne('App\User', 'driver_id');
 	}
 	
 	public function Arrivals(){

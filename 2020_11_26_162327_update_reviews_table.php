@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateUsersTable extends Migration
+class UpdateReviewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class UpdateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('driver_id')->unsigned()->nullable();
-			$table->foreign('driver_id')->references('id')->on('drivers');
+        Schema::table('reviews', function (Blueprint $table) {
+			$table->integer('user_id')->unsigned();
+			$table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -27,8 +27,8 @@ class UpdateUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-			$table->dropForeign('users_driver_id_foreign');
-            $table->dropColumn('driver_id');
+			$table->dropColumn('user_id');
+			$table->dropForeign('reviews_user_id_foreign');
         });
     }
 }

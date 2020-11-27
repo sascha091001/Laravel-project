@@ -19,7 +19,7 @@
 					<p class = "ml-4"> <b> Опыт работы: </b> <b class = "text-danger"> {{ $driver->experience }} год(а) </b> </p>
 					<p class = "ml-4"> <b> Дата рождения: </b> <b class = "text-danger"> {{ $driver->birthday }} </b> </p>
 					
-					@if(Auth::user() and Auth::user()->drivers_id == $driver->id)
+					@if(Auth::user() and Auth::user()->driver_id == $driver->id)
 						<p class = "ml-4"> <b> Зарплата: </b> <b class = "text-danger"> {{ $driver->salary }} рублей </b> </p>
 					@else
 						<p class = "ml-4"> <b> Зарплата: </b> <b class = "text-warning"> Даннная информация доступна только конкретному водителю! </b>
@@ -32,7 +32,7 @@
 			</div>
 		</div>
 		
-		@if(Auth::user() and Auth::user()->drivers_id == $driver->id)
+		@if(Auth::user() and Auth::user()->driver_id == $driver->id)
 			<div class = "row mt-5">
 				<div class = "col-12">
 					@if (count($driver->arrivals) > 0)
