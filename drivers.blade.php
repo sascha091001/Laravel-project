@@ -1,11 +1,19 @@
-@extends('layouts.admin')
+  <!-- resources/views/tasks.blade.php -->
+@extends('layouts.app')
 
 @section('title')
-	Водители
+	Список водителей
 @endsection
 
 @section('content')
 
+  <!-- Bootstrap шаблон... -->
+ <div class = "container">
+  <!-- TODO: Текущие задачи -->
+
+  <!-- Форма создания задачи... -->
+
+  <!-- Текущие задачи -->
   @if (count($drivers) > 0)
     <div class = "container mt-5">
 		<h2 class = "text-center mb-5"> Водители </h2>
@@ -16,16 +24,15 @@
 					<th>ФИО</th>
 					<th>Дата рождения</th>
 					<th>Опыт, лет</th>
-					<th>Зарплата, руб.</th>
-					<th>Действия</th>
+					<th>Отзывы</th>
 				</tr>
 			</thead>
 
           <tbody>
             @foreach ($drivers as $driver)
-              <tr class = "text-center">				
-				<td>
-					<p> <b> {{ $driver->FIO }} </b> </p>
+              <tr class = "text-center">
+				<td> 
+					<div> <a href = "{{route('showDriverInfo', [$driver->id])}}"> {{ $driver->FIO }} </a> </div>
 				</td>
 				
 				<td>
@@ -37,37 +44,14 @@
 				</td>
 				
 				<td>
-					<p> <b> {{ $driver->salary }} </b> </p>
-				</td>
-
-				<td>
-					<a href = "{{ route('drivers.show', $driver->id) }}" class = "btn btn-success"> См. </a>
-					<a href = "{{ route('drivers.edit', $driver->id) }}" class = "btn btn-warning"> Обн. </a>
-					<form action="{{route('drivers.destroy', $driver->id)}}" method="POST" style = "display: contents">
-						{{ csrf_field() }}
-						{{ method_field('DELETE') }}
-
-						<button type="submit" class="btn btn-danger">
-							<i class="fa fa-search"></i>Удал.
-						</button>
-					</form>
+					<span class="badge badge-primary badge-pill"> {{ count($driver->reviews) }} </span>
 				</td>
               </tr>
             @endforeach
           </tbody>
         </table>
-	@endif
-	
-	<div class = "row">
-			<div class = "col-6">
-				{{ $drivers->links('userpages.paginate') }}
-			</div>
-			
-			<div class = "col-6">
-				<a href = "{{ route('drivers.create') }}" class = "btn btn-primary" style = "float: right"> Добавить водителя </a>
-			</div>
-		</div>
-	</div>
+		
+		{{ $drivers->links('userpages.paginate') }}
   </div>
   
   <style>
@@ -86,5 +70,5 @@
 	}
   
   </style>
-
+   @endif
 @endsection

@@ -6,6 +6,7 @@
 
 @section('content')
 	<div class = "container">
+		@include('common.errors')
 		<h1 class = "mt-5 text-center mb-5"> Добавление водителя </h1>
 		<form action="{{ route('drivers.store') }}" method="POST" class="form-horizontal mt-3">
 		  {{ csrf_field() }}

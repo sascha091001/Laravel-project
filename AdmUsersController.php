@@ -53,7 +53,7 @@ class AdmUsersController extends Controller
 			'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
-			'type' => 'in:Админ,Обычный,Водитель'
+			'type' => 'required'
 		]);
 		
 		$user = new User;
@@ -129,8 +129,10 @@ class AdmUsersController extends Controller
 		
         $this->validate($request, [
 			'name' => 'required|max:255',
+			'email' => 'required|email|max:255|unique:users',
 		]);
 		
+		$user->name = $request->name;
 		$user->email = $request->email;
 		$user->type = $request->type;
 		

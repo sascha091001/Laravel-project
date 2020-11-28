@@ -8,6 +8,7 @@
 
   <!-- Bootstrap шаблон... -->
 	<div class = "container">
+		@include('common.errors')
 		<div class = "row">
 			<div class = "col-12">
 				<h1 class = "text-left"> Информация о водителе </h1>
@@ -18,10 +19,11 @@
 					<p class = "ml-4"> <b> ФИО: </b> <b class = "text-danger"> {{ $driver->FIO }} </b> </p>
 					<p class = "ml-4"> <b> Опыт работы: </b> <b class = "text-danger"> {{ $driver->experience }} год(а) </b> </p>
 					<p class = "ml-4"> <b> Дата рождения: </b> <b class = "text-danger"> {{ $driver->birthday }} </b> </p>
-					@if(Auth::user() and Auth::user()->drivers_id == $driver->id)
+					
+					@if(Auth::user() and Auth::user()->driver_id == $driver->id)
 						<p class = "ml-4"> <b> Зарплата: </b> <b class = "text-danger"> {{ $driver->salary }} рублей </b> </p>
 					@else
-						<p class = "ml-4"> <b> Зарплата: </b> <b class = "text-warning"> Даннная информация доступна только конкретному водителю! </b>
+						<p class = "ml-4"> <b> Зарплата: </b> <b class = "text-warning"> Данная информация доступна только конкретному водителю! </b>
 					@endif
 				</div>
 			</div>
@@ -31,12 +33,55 @@
 			</div>
 		</div>
 		
-		<div class = "row">
+		@if(Auth::user() and Auth::user()->driver_id == $driver->id)
+			<div class = "row mt-5">
+				<div class = "col-12">
+					@if (count($driver->arrivals) > 0)
+						<h1 class = "text-left mb-4"> Недавние поездки </h1>
+						
+						<table class="table table-striped task-table">
+							<thead class="thead-dark">
+								<tr class = "text-center">
+									<th>Маршрут</th>
+									<th>Автомобиль</th>
+									<th>Дата отправки</th>
+									<th>Дата прибытия</th>
+								</tr>
+							</thead>
+
+						  <tbody>
+							@foreach ($driver->arrivals as $arrival)
+							  <tr class = "text-center">
+								<td>
+									<div> <a href = "{{route('showRouteInfo', [$arrival->route->id])}}"> {{ $arrival->route->full_route }} </a> </div>
+								</td>
+								
+								<td>
+									<div> <a href = "{{route('showCarInfo', [$arrival->car->id])}}"> {{ $arrival->car->model }} </a> </div>
+								</td>
+								
+								<td>
+									<p> <b> {{ $arrival->date_of_departure}} </b> </p>
+								</td>
+								
+								<td>
+									<p> <b> {{ $arrival->date_of_arrival}} </b> </p>
+								</td>
+							  </tr>
+							@endforeach
+						  </tbody>
+						</table>
+					@endif	
+				</div>
+			</div>
+		@endif
+		
+		<div class = "row mt-5">
 			<div class = "col-12">
 				<h1 class = "text-left"> Отзывы о водителе </h1>
 				
 				<div class = "row mt-4">
-					@forelse ($driver->reviews as $review)
+					@forelse ($reviews as $review)
 						<div class = "col-6 mb-3">
 
 						@if($driver->user and $review->user_id == $driver->user->id)
@@ -77,6 +122,8 @@
 					@endforelse
 				</div>
 			</div>
+			
+			{{ $reviews->links('userpages.paginate') }}
 		</div>
 		
 		<div class = "row">
@@ -118,7 +165,15 @@
 body{
 	background-image: url(https://avatanplus.com/files/resources/original/5b88ffcc57cde1658f273648.jpg);
 }
+
+td{
+	border: 1px solid black;
+	background-color: white;
+}
+
+th{
+	border: 1px solid black;
+}
 </style>
 	
 @endsection
-
