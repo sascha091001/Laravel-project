@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Driver extends Model
 {
+	public $timestamps = false;
+	
     public function Reviews(){
 		return $this->hasMany('App\Review', 'driver_id');
 	}

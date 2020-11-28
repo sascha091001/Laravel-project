@@ -52,11 +52,18 @@ class AdmUsersController extends Controller
 		$user->email = $request->email;
 		$user->password = bcrypt($request->password);
 		$user->type = $request->type;
-		if ($request->driver_id == 'Не выбрано'){
-			$user->driver_id = NULL;
+		
+		if ($request->type != 'Водитель'){
+			if ($user->driver){
+				$user->driver_id = NULL;
+			}
 		}
 		else{
 			$user->driver_id = $request->driver_id;
+		}
+		
+		if ($request->type == 'Водитель' and $request->driver_id == 'Не выбрано'){
+			$user->driver_id = NULL;
 		}
 		
 		$user->save();
@@ -72,7 +79,9 @@ class AdmUsersController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+		
+		return view('adminpages.UserShow', ['user' => $user]);
     }
 
     /**
@@ -101,6 +110,7 @@ class AdmUsersController extends Controller
      */
     public function update(Request $request, $id)
     {
+		//dd($request->all());
 		$user = User::find($id);
 		
         $this->validate($request, [
@@ -109,16 +119,21 @@ class AdmUsersController extends Controller
 		
 		$user->email = $request->email;
 		$user->type = $request->type;
-		$user->driver_id = $request->driver_id;
 		
 		if ($request->type != 'Водитель'){
 			if ($user->driver){
 				$user->driver_id = NULL;
 			}
 		}
+		else{
+			$user->driver_id = $request->driver_id;
+		}
+		
+		if ($request->type == 'Водитель' and $request->driver_id == 'Не выбрано'){
+			$user->driver_id = NULL;
+		}
 		
 		$user->save();
-		
 		return redirect()->route('users.index');
     }
 

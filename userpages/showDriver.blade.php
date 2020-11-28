@@ -8,6 +8,7 @@
 
   <!-- Bootstrap шаблон... -->
 	<div class = "container">
+		@include('common.errors')
 		<div class = "row">
 			<div class = "col-12">
 				<h1 class = "text-left"> Информация о водителе </h1>
@@ -22,7 +23,7 @@
 					@if(Auth::user() and Auth::user()->driver_id == $driver->id)
 						<p class = "ml-4"> <b> Зарплата: </b> <b class = "text-danger"> {{ $driver->salary }} рублей </b> </p>
 					@else
-						<p class = "ml-4"> <b> Зарплата: </b> <b class = "text-warning"> Даннная информация доступна только конкретному водителю! </b>
+						<p class = "ml-4"> <b> Зарплата: </b> <b class = "text-warning"> Данная информация доступна только конкретному водителю! </b>
 					@endif
 				</div>
 			</div>

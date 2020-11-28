@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Arrival extends Model
 {
+	public $timestamps = false;
+	
     public function Car(){
 		return $this->belongsTo('App\Car', 'car_id');
 	}
