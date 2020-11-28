@@ -15,10 +15,9 @@
 			<b> Проверка </b> <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder = "Проверка пароля"> 
 			<b> Тип </b>
 			<select class = "form-control" name = "type">
-				<option> Не выбрано </option>
-				<option> Обычный </option>
-				<option> Водитель </option>
-				<option> Админ </option>
+				@foreach ($arr as $elem)
+					<option> {{ $elem }} </option>
+				@endforeach
 			</select>
 			<p> <b> Водитель </b> (Если тип водитель, то указываем водителя) </p>
 			

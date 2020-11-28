@@ -34,4 +34,8 @@ class User extends Authenticatable
 	public function Driver(){
 		return $this->belongsTo('App\Driver', 'driver_id');
 	}
+	
+	public function isAdmin(){
+		return $this->type == 'Админ';
+	}
 }

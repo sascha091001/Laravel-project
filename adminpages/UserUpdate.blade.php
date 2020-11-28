@@ -16,6 +16,9 @@
 			<b> Тип </b>
 			<select class = "form-control" name = "type">
 				<option> {{ $user->type }} </option>
+					@if ($user->type == 'Водитель' and count($drivers) == 0)
+						<option> Обычный </option>
+					@endif
 					@foreach ($arr as $elem)
 						<option> {{ $elem }} </option>
 					@endforeach
@@ -26,14 +29,14 @@
 				
 				<select class = "form-control" name = "driver_id">
 					<option value = "{{ $user->driver_id or 'Не выбрано'}}"> {{ $user->driver->FIO or 'Не выбрано'}} </option>
-		
+				
 					@foreach ($drivers as $driver)
 						<option value = "{{ $driver->id }}"> {{ $driver->FIO }} </option>
 					@endforeach
 				</select>
 			
 			
-			<input type = "submit" name = "Sub" value = "Добавить" class = "form-control mt-3 btn btn-primary" >
+			<input type = "submit" name = "Sub" value = "Обновить" class = "form-control mt-3 btn btn-primary" >
 		</form>
 	</div>	
 @endsection

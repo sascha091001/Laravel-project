@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Driver;
 
@@ -28,8 +29,16 @@ class AdmUsersController extends Controller
     public function create()
     {
         $users = User::all();
-		$drivers = Driver::all();
-        return view('adminpages.UserCreate', ['drivers' => $drivers, 'users' => $users]);
+		//$drivers = Driver::all();
+		
+		$arr = ['Обычный', 'Водитель', 'Админ'];
+		$drivers = DB::table('drivers')->select('drivers.id', 'drivers.FIO')->leftjoin('users', 'drivers.id', '=', 'users.driver_id')->where('users.driver_id', '=', NULL)->get();
+		
+		if (count($drivers) == 0){
+			unset($arr[array_search('Водитель', $arr)]);
+		}
+		
+        return view('adminpages.UserCreate', ['drivers' => $drivers, 'users' => $users, 'arr' => $arr]);
     }
 
     /**
@@ -97,7 +106,12 @@ class AdmUsersController extends Controller
 		$arr = ['Обычный', 'Водитель', 'Админ'];
 		unset($arr[array_search("$user->type", $arr)]);
 		
-		$drivers = Driver::all()->where('id', '<>', $user->driver_id);
+		$drivers = DB::table('drivers')->select('drivers.id', 'drivers.FIO')->leftjoin('users', 'drivers.id', '=', 'users.driver_id')->where('users.driver_id', '=', NULL)->get();
+		
+		if (count($drivers) == 0){
+			unset($arr[array_search('Водитель', $arr)]);
+		}
+		
 		return view('adminpages.UserUpdate', ['user' => $user, 'drivers' => $drivers, 'arr' => $arr]);
     }
 
@@ -146,6 +160,7 @@ class AdmUsersController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
+		$user->reviews()->delete();
 		$user->delete();
 		return redirect()->route('users.index');
     }
