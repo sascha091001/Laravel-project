@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+//use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Driver;
 
@@ -32,7 +32,7 @@ class AdmUsersController extends Controller
 		//$drivers = Driver::all();
 		
 		$arr = ['Обычный', 'Водитель', 'Админ'];
-		$drivers = DB::table('drivers')->select('drivers.id', 'drivers.FIO')->leftjoin('users', 'drivers.id', '=', 'users.driver_id')->where('users.driver_id', '=', NULL)->get();
+		$drivers = Driver::doesntHave('user')->get();
 		
 		if (count($drivers) == 0){
 			unset($arr[array_search('Водитель', $arr)]);
@@ -101,7 +101,7 @@ class AdmUsersController extends Controller
 		$arr = ['Обычный', 'Водитель', 'Админ'];
 		unset($arr[array_search("$user->type", $arr)]);
 		
-		$drivers = DB::table('drivers')->select('drivers.id', 'drivers.FIO')->leftjoin('users', 'drivers.id', '=', 'users.driver_id')->where('users.driver_id', '=', NULL)->get();
+		$drivers = Driver::doesntHave('user')->get();
 		
 		if (count($drivers) == 0){
 			unset($arr[array_search('Водитель', $arr)]);
