@@ -1,12 +1,13 @@
 @extends('layouts.admin')
 
 @section('title')
-	Добавление поездки
+	Обновление поездки
 @endsection
 
 @section('content')
 	<div class = "container">
-		<h1 class = "mt-5 text-center mb-5"> Добавление поездки </h1>
+		@include('common.errors')
+		<h1 class = "mt-5 text-center mb-5"> Обновление поездки </h1>
 		<form action="{{ route('arrivals.update', $arrival->id) }}" method="POST" class="form-horizontal mt-3">
 			{{ csrf_field() }}
 			{{ method_field('PUT') }}
@@ -40,7 +41,7 @@
 			<b> Дата отправки: </b> <input type = "date" value = "{{ $arrival->date_of_departure }}" name = "date_of_departure" class = "form-control">
 			<b> Дата приезда: </b> <input type = "date" value = "{{ $arrival->date_of_arrival }}" name = "date_of_arrival" class = "form-control">
 			
-			<input type = "submit" name = "Sub" value = "Добавить" class = "form-control mt-3 btn btn-primary" >
+			<input type = "submit" name = "Sub" value = "Обновить" class = "form-control mt-3 btn btn-primary" >
 		</form>
 	</div>	
 @endsection

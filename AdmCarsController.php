@@ -37,12 +37,12 @@ class AdmCarsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-			'number' => 'required|max:6',
-			'model' => 'required',
-			'condition' => 'required',
-			'mileage' => 'required',
-			'tonnage' => 'required',
-			'img' => 'required'
+			'number' => 'required|max:6|unique:cars',
+			'model' => 'required|max:20',
+			'condition' => 'required|max:15',
+			'mileage' => 'required|numeric|max:300000',
+			'tonnage' => 'required|numeric|max:10',
+			'img' => 'required|max:255'
 		]);
 		
 		$car = new Car;
@@ -96,11 +96,11 @@ class AdmCarsController extends Controller
 		
         $this->validate($request, [
 			'number' => 'required|max:6',
-			'model' => 'required',
-			'condition' => 'required',
-			'mileage' => 'required',
-			'tonnage' => 'required',
-			'img' => 'required'
+			'model' => 'required|max:20',
+			'condition' => 'required|max:15',
+			'mileage' => 'required|numeric|max:300000',
+			'tonnage' => 'required|numeric|max:10',
+			'img' => 'required|max:255'
 		]);
 
 		$car->number = $request->number;

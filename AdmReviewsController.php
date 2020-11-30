@@ -42,8 +42,8 @@ class AdmReviewsController extends Controller
     {
 		$this->validate($request, [
 			'text' => 'required|max:255',
-			'user_id' => 'required',
-			'driver_id' => 'required'
+			'user_id' => 'required|numeric',
+			'driver_id' => 'required|numeric'
 		]);
 		
 		$review = new Review;
@@ -98,8 +98,8 @@ class AdmReviewsController extends Controller
 		
 		$this->validate($request, [
 			'text' => 'required|max:255',
-			'user_id' => 'required',
-			'driver_id' => 'required'
+			'user_id' => 'required|numeric',
+			'driver_id' => 'required|numeric'
 		]);
 		
         $review->driver_id = $request->driver_id;

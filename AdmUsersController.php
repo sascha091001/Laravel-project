@@ -62,17 +62,12 @@ class AdmUsersController extends Controller
 		$user->password = bcrypt($request->password);
 		$user->type = $request->type;
 		
-		if ($request->type != 'Водитель'){
-			if ($user->driver){
-				$user->driver_id = NULL;
-			}
-		}
-		else{
+		if ($request->type == 'Водитель'){
+			$this->validate($request, [
+				'driver_id' => 'required|numeric'
+			]);
+			
 			$user->driver_id = $request->driver_id;
-		}
-		
-		if ($request->type == 'Водитель' and $request->driver_id == 'Не выбрано'){
-			$user->driver_id = NULL;
 		}
 		
 		$user->save();
@@ -124,32 +119,28 @@ class AdmUsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-		//dd($request->all());
 		$user = User::find($id);
 		
         $this->validate($request, [
 			'name' => 'required|max:255',
-			'email' => 'required|email|max:255|unique:users',
 		]);
 		
 		$user->name = $request->name;
-		$user->email = $request->email;
 		$user->type = $request->type;
 		
 		if ($request->type != 'Водитель'){
-			if ($user->driver){
-				$user->driver_id = NULL;
-			}
+			$user->driver_id = NULL;
 		}
-		else{
+		else {
+			$this->validate($request, [
+				'driver_id' => 'required|numeric'
+			]);
+			
 			$user->driver_id = $request->driver_id;
 		}
 		
-		if ($request->type == 'Водитель' and $request->driver_id == 'Не выбрано'){
-			$user->driver_id = NULL;
-		}
-		
 		$user->save();
+		
 		return redirect()->route('users.index');
     }
 

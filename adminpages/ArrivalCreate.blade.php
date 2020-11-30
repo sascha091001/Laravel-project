@@ -6,6 +6,7 @@
 
 @section('content')
 	<div class = "container">
+		@include('common.errors')
 		<h1 class = "mt-5 text-center mb-5"> Добавление поездки </h1>
 		<form action="{{ route('arrivals.store') }}" method="POST" class="form-horizontal mt-3">
 		  {{ csrf_field() }}
@@ -36,8 +37,8 @@
 				@endforeach
 			</select>
 			
-			<b> Дата отправки: </b> <input type = "date" name = "date_of_departure" class = "form-control">
-			<b> Дата приезда: </b> <input type = "date" name = "date_of_arrival" class = "form-control">
+			<b> Дата отправки: </b> <input type = "date" value="{{ old('date_of_departure') }}" name = "date_of_departure" class = "form-control">
+			<b> Дата приезда: </b> <input type = "date" value="{{ old('date_of_arrival') }}" name = "date_of_arrival" class = "form-control">
 			
 			<input type = "submit" name = "Sub" value = "Добавить" class = "form-control mt-3 btn btn-primary" >
 		</form>

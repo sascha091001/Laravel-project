@@ -37,10 +37,10 @@ class AdmRoutesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-			'route_from' => 'required',
-			'route_where' => 'required',
-			'full_route' => 'required',
-			'distance' => 'required',
+			'route_from' => 'required|max:30',
+			'route_where' => 'required|max:30',
+			'full_route' => 'required|max:255',
+			'distance' => 'required|numeric|max:1000',
 		]);
 		
 		$route = new Route;
@@ -92,10 +92,10 @@ class AdmRoutesController extends Controller
 		$route = Route::find($id);
 		
         $this->validate($request, [
-			'route_from' => 'required',
-			'route_where' => 'required',
-			'full_route' => 'required',
-			'distance' => 'required',
+			'route_from' => 'required|max:30',
+			'route_where' => 'required|max:30',
+			'full_route' => 'required|max:255',
+			'distance' => 'required|numeric|max:10000',
 		]);
 		
 		$route->route_from = $request->route_from;

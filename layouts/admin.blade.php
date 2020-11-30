@@ -28,6 +28,9 @@
 		  </button>
 		  <div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav mr-auto">
+			  <li class="nav-item active">
+				<a class="nav-link" href="{{ url('/') }}"> Домашняя страница <span class="sr-only">(current)</span></a>
+			  </li>
 			  <li class="nav-item">
 					<a class="nav-link" href = "{{ route('drivers.index') }}"> Водители </a>
 			  </li>

@@ -42,13 +42,11 @@ class AdmArrivalsController extends Controller
      */
     public function store(Request $request)
     {
-		//dd($request->all());
-		
         $this->validate($request, [
-			'car_id' => 'required',
-			'driver_id' => 'required',
-			'route_id' => 'required',
-			'date_of_departure' => 'required'
+			'car_id' => 'required|numeric',
+			'driver_id' => 'required|numeric',
+			'route_id' => 'required|numeric',
+			'date_of_departure' => 'required|date'
 		]);
 		
 		
@@ -107,10 +105,10 @@ class AdmArrivalsController extends Controller
     public function update(Request $request, $id)
     {	
         $this->validate($request, [
-			'car_id' => 'required',
-			'driver_id' => 'required',
-			'route_id' => 'required',
-			'date_of_departure' => 'required'
+			'car_id' => 'required|numeric',
+			'driver_id' => 'required|numeric',
+			'route_id' => 'required|numeric',
+			'date_of_departure' => 'required|date'
 		]);
 		
 		$arrival = Arrival::find($id);

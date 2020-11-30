@@ -19,7 +19,9 @@
 						<p class = "ml-4"> <b> Имя: </b> <b class = "text-danger"> {{ $user->name }} </b> </p>
 						<p class = "ml-4"> <b> Почта: </b> <b class = "text-danger"> {{ $user->email }} </b> </p>
 						<p class = "ml-4"> <b> Роль: </b> <b class = "text-danger"> {{ $user->type }} </b> </p>
-						<p class = "ml-4"> <b> Имя водителя (если есть): </b> <b class = "text-danger"> {{ $user->driver->FIO or 'Не является водителем' }} </b> </p>
+						@if($user->type == 'Водитель')
+							<p class = "ml-4"> <b> Роль: </b> <b class = "text-danger"> {{ $user->type }} - {{ $user->driver->FIO or 'Пока не определён' }} </b> </p>
+						@endif
 						<p class = "ml-4"> <b> Создан: </b> <b class = "text-danger"> {{ $user->created_at }} </b> </p>
 						<p class = "ml-4"> <b> Обновлён: </b> <b class = "text-danger"> {{ $user->updated_at }} </b> </p>
 					</div>

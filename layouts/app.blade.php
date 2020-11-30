@@ -41,11 +41,9 @@
 					<a class="nav-link" href=" {{ route('listCars') }}"> Авто </a>
 			  </li>
 			  
-			  @if (Auth::user() and Auth::user()->type == "Админ")
 			  <li class="nav-item active">
 				<a class="nav-link" href="{{ route('drivers.index') }}"> Страница администратора <span class="sr-only">(current)</span></a>
 			  </li>
-			  @endif
 			</ul>
 			
 			<ul class="nav navbar-nav navbar-right">
@@ -149,91 +147,86 @@
     <script src="/js/app.js"></script>-->
 	
 	<style>
-     .bg-grey {
-        background: #292929;
-     }
-     .logo-footer {
-        margin-bottom: 40px;
-     }
-     footer {
-            color: grey;
-     }
-     footer p, a {
-}
-footer h6 {
-    margin-bottom: 40px;
-    position: relative;
-}
-footer h6:after {
-    position: absolute;
-    content: "";
-    background: grey;
-    width: 12%;
-    height: 1px;
-    left: 0;
-    bottom: -20px;
-}
- .btn-footer {
-			 color: grey;
-		  
+		.bg-grey {
+			background: #292929;
+		}
+		.logo-footer {
+			margin-bottom: 40px;
+		}
+		footer {
+			color: grey;
+		}
+		footer h6 {
+			margin-bottom: 40px;
+			position: relative;
+		}
+		footer h6:after {
+			position: absolute;
+			content: "";
+			background: grey;
+			width: 12%;
+			height: 1px;
+			left: 0;
+			bottom: -20px;
+		}
+		 .btn-footer {
+			color: grey;	  
 			text-decoration: none;
 			border: 1px solid;
 			border-radius: 43px;
 			padding: 7px 30px;
 			line-height: 47px;
- }
- .btn-footer:hover {
+		 }
+		 .btn-footer:hover {
+			text-decoration: none;		   
+		 }
+		.form-footer input[type="text"] {
+			border: none;
+			border-radius: 16px 0 0 16px;
+			outline: none;
+			padding-left: 10px;
 			
+		}
+		::placeholder {
+			padding-left: 10px;
+			font-style: italic;
+		}
+		 .form-footer input[type="button"] {
+			border: none;
+			background:#232323;
+				margin-left: -5px;
+			color: #fff;
+			outline: none;
+			border-radius: 0 16px 16px 0;
+			padding: 2px 12px;
+		}
+			 .social .fa {
+			color: grey;
+			font-size: 22px;
+			padding: 10px 15px;
+			background: #3c3c3c;
+		}
+			 footer ul li {
+			list-style: none;
+			display: block;
+		}
+		  footer ul  {
+		   padding-left: 0;
+		}
+		footer ul  li a{
+		  text-decoration: none;
+		  color: grey;
+		  text-decoration:none;
+		}
+		a:hover {
 			text-decoration: none;
-		   
- }
-.form-footer input[type="text"] {
-	border: none;
-border-radius: 16px 0 0 16px;
-outline: none;
-padding-left: 10px;
-    
-}
-::placeholder {
-    padding-left: 10px;
-    font-style: italic;
-}
- .form-footer input[type="button"] {
-    border: none;
-    background:#232323;
-        margin-left: -5px;
-    color: #fff;
-    outline: none;
-    border-radius: 0 16px 16px 0;
-    padding: 2px 12px;
-}
-     .social .fa {
-    color: grey;
-    font-size: 22px;
-    padding: 10px 15px;
-    background: #3c3c3c;
-}
-     footer ul li {
-    list-style: none;
-    display: block;
-}
-  footer ul  {
-   padding-left: 0;
-}
-footer ul  li a{
-  text-decoration: none;
-  color: grey;
-  text-decoration:none;
-}
-a:hover {
-    text-decoration: none;
-    
-    
-}
-.logo-part {
-    border-right: 1px solid grey;
-    height: 100%;
-    }
+			
+			
+		}
+		.logo-part {
+			border-right: 1px solid grey;
+			height: 100%;
+		}
 	</style>
 	
 </body>

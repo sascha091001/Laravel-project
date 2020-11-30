@@ -38,9 +38,9 @@ class AdmDriversController extends Controller
     {
         $this->validate($request, [
 			'FIO' => 'required|max:40',
-			'birthday' => 'required',
-			'experience' => 'required',
-			'salary' => 'required',
+			'birthday' => 'required|date',
+			'experience' => 'required|numeric|max:50',
+			'salary' => 'required|numeric|max:100000',
 		]);
 		
 		$driver = new Driver;
@@ -93,9 +93,9 @@ class AdmDriversController extends Controller
 		
         $this->validate($request, [
 			'FIO' => 'required|max:40',
-			'birthday' => 'required',
-			'experience' => 'required',
-			'salary' => 'required',
+			'birthday' => 'required|date',
+			'experience' => 'required|numeric|max:50',
+			'salary' => 'required|numeric|max:100000',
 		]);
 		
 		$driver->FIO = $request->FIO;

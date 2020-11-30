@@ -8,6 +8,9 @@
 @section('content')
 
 <div class = "container">
+	@if (Session::has('message'))
+		<div class = "alert alert-danger mt-3"> {{ Session::get('message') }} </div>
+	@endif
 	<div class = "row">
 		<div class = "col-12">
 			<h1 class = "text-center"> Автотранспортная компания <span class = "text-danger"> "Авалон" </span> </h1>

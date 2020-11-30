@@ -6,6 +6,7 @@
 
 @section('content')
 	<div class = "container">
+		@include('common.errors')
 		<h1 class = "mt-5 text-center mb-5"> Редактирование отзыва </h1>
 		<form action="{{ route('reviews.update', $review->id) }}" method="POST" class="form-horizontal mt-3">
 			{{ csrf_field() }}

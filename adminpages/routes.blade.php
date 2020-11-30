@@ -33,7 +33,7 @@
 				</td>
 				
 				<td>
-					<p> <b> {{ $route->full_route }} </b> </p>
+					<p class = "text-success"> <b> {{ $route->full_route }} </b> </p>
 				</td>
 				
 				<td>
