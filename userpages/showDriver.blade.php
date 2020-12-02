@@ -9,11 +9,10 @@
   <!-- Bootstrap шаблон... -->
 	<div class = "container">
 		@include('common.errors')
+		@if (Session::has('message'))
+			<div class = "alert alert-primary mt-3"> {{ Session::get('message') }} </div>
+		@endif
 		<div class = "row">
-			<div class = "col-12">
-				<h1 class = "text-left"> Информация о водителе </h1>
-			</div>
-			
 			<div class = "col-5 mt-4">
 				<div class = "border-left border-secondary">
 					<p class = "ml-4"> <b> ФИО: </b> <b class = "text-danger"> {{ $driver->FIO }} </b> </p>
@@ -26,6 +25,8 @@
 						<p class = "ml-4"> <b> Зарплата: </b> <b class = "text-warning"> Данная информация доступна только конкретному водителю! </b>
 					@endif
 				</div>
+				
+				<a href = "{{ route('listDrivers') }}" class = "btn btn-secondary form-control mt-4"> Назад </a>
 			</div>
 			
 			<div class = "col-7 mt-4">
@@ -50,7 +51,7 @@
 							</thead>
 
 						  <tbody>
-							@foreach ($driver->arrivals as $arrival)
+							@foreach ($arrivals as $arrival)
 							  <tr class = "text-center">
 								<td>
 									<div> <a href = "{{route('showRouteInfo', [$arrival->route->id])}}"> {{ $arrival->route->full_route }} </a> </div>
@@ -65,7 +66,7 @@
 								</td>
 								
 								<td>
-									<p> <b> {{ $arrival->date_of_arrival}} </b> </p>
+									<p> <b> {{ $arrival->date_of_arrival or 'В пути' }} </b> </p>
 								</td>
 							  </tr>
 							@endforeach
@@ -118,12 +119,16 @@
 							</div>
 						</div>
 					@empty
-						<p> Отзывов нет </p>
+						<div class = "col-12">
+							<div class = "alert alert-danger mt-3"> Отзывов о донном водителе пока нет! </div>
+						</div>
 					@endforelse
 				</div>
 			</div>
 			
-			{{ $reviews->links('userpages.paginate') }}
+			<div class = "ml-3">
+				{{ $reviews->links('userpages.paginate') }}
+			</div>
 		</div>
 		
 		<div class = "row">

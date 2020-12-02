@@ -9,16 +9,16 @@
   <!-- Bootstrap шаблон... -->
 	<div class = "container">
 		<div class = "row">
-			<div class = "col-12">
-				<h1 class = "text-left"> Информация о водителе </h1>
-			</div>
-			
 			<div class = "col-5 mt-4">
 				<div class = "border-left border-secondary">
 					<p class = "ml-4"> <b> ФИО: </b> <b class = "text-danger"> {{ $driver->FIO }} </b> </p>
 					<p class = "ml-4"> <b> Опыт работы: </b> <b class = "text-danger"> {{ $driver->experience }} год(а) </b> </p>
 					<p class = "ml-4"> <b> Дата рождения: </b> <b class = "text-danger"> {{ $driver->birthday }} </b> </p>
 					<p class = "ml-4"> <b> Зарплата: </b> <b class = "text-danger"> {{ $driver->salary }} рублей </b> </p>
+				</div>
+				
+				<div class = "mt-3">
+					<a href = "{{ route('drivers.index') }}" class = "btn btn-secondary mt-4 form-control"> Назад </a>
 				</div>
 			</div>
 			

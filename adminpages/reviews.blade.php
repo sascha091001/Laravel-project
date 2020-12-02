@@ -9,6 +9,9 @@
   @if (count($reviews) > 0)
     <div class = "container mt-5">
 		<h2 class = "text-center mb-5"> Отзывы </h2>
+		@if (Session::has('message'))
+			<div class = "alert alert-primary mt-3"> {{ Session::get('message') }} </div>
+		@endif
 		
         <table class="table table-striped task-table">
 			<thead class="thead-dark">

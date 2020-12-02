@@ -7,6 +7,9 @@
 @section('content')
 	<div class = "container">
 		@include('common.errors')
+		@if (Session::has('message'))
+			<div class = "alert alert-danger mt-3"> {{ Session::get('message') }} </div>
+		@endif
 		<h1 class = "mt-5 text-center mb-5"> Обновление автомобиля </h1>
 		<form action="{{ route('cars.update', $car->id) }}" method="POST" class="form-horizontal mt-3">
 			{{ csrf_field() }}

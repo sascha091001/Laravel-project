@@ -7,10 +7,9 @@
 @section('content')
 	<div class = "container">
 		<div class = "row">
-			<div class = "col-12">
-				<h1 class = "text-center"> Информация об автомобиле </h1>
+			<div class = "col-3">
 			</div>
-
+		
 			<div class = "col-6 mt-4" style = "margin:0 auto">
 				<img src = "{{ $car->img }}" width = "100%" class = "border border-primary">
 				
@@ -23,6 +22,10 @@
 						<p class = "ml-4"> <b> Вес: </b> <b class = "text-danger"> {{ $car->tonnage }} т. </b> </p>
 					</div>
 				</div>
+			</div>
+			
+			<div class = "col-3">
+				<a href = "{{ route('listCars') }}" class = "btn btn-secondary form-control mt-4"> Назад </a>
 			</div>
 		</div>
 	</div>

@@ -7,8 +7,11 @@
 @section('content')
 	<div class = "container">
 		<div class = "row">
+			<div class = "col-3">
+			</div>
+				
 			<div class = "col-6 mt-4" style = "margin:0 auto">
-				<img src = "https://mignews.com/aimages/05_17/210517_211232_60495_2.jpg" width = "100%">
+				<img src = "https://mignews.com/aimages/05_17/210517_211232_60495_2.jpg" width = "100%">	
 				
 				<div class = "mt-4">
 					<div class = "border-left border-secondary">
@@ -19,6 +22,9 @@
 						<p class = "ml-4"> <b> Дата приезда: </b> <b class = "text-danger"> {{ $arrival->date_of_arrival or 'Не приехал' }} </b> </p>
 					</div>
 				</div>
+			</div>
+			<div class = "col-3">
+				<a href = "{{ route('arrivals.index') }}" class = "btn btn-secondary mt-4 form-control"> Назад </a>
 			</div>
 		</div>
 	</div>

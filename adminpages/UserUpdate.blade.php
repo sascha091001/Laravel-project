@@ -7,11 +7,15 @@
 @section('content')
 	<div class = "container">
 		@include('common.errors')
+		@if (Session::has('message'))
+			<div class = "alert alert-danger mt-3"> {{ Session::get('message') }} </div>
+		@endif
 		<h1 class = "mt-5 text-center mb-5"> Обновление пользователя  </h1>
 		<form action="{{ route('users.update', $user->id) }}" method="POST" class="form-horizontal mt-3">
 			{{ csrf_field() }}
 			{{ method_field('PUT') }}
 			<b> Имя </b> <input type = "text" value = "{{ $user->name }}" name = "name" class = "form-control">
+			<b> Почта </b> <input type = "text" value="{{ $user->email }}" name = "email" class = "form-control">
 			<b> Тип </b>
 			<select class = "form-control" name = "type" id = "Driver">
 				<option> {{ $user->type }} </option>

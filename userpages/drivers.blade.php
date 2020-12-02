@@ -22,7 +22,6 @@
 			<thead class="thead-dark">
 				<tr class = "text-center">
 					<th>ФИО</th>
-					<th>Дата рождения</th>
 					<th>Опыт, лет</th>
 					<th>Отзывы</th>
 				</tr>
@@ -34,11 +33,7 @@
 				<td> 
 					<div> <a href = "{{route('showDriverInfo', [$driver->id])}}"> {{ $driver->FIO }} </a> </div>
 				</td>
-				
-				<td>
-					<p> <b> {{ $driver->birthday }} </b> </p>
-				</td>
-				
+								
 				<td>
 					<p> <b> {{ $driver->experience }} </b> </p>
 				</td>
