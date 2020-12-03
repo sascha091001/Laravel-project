@@ -54,6 +54,7 @@ class AdmCarsController extends Controller
 		$car->img = $request->img;
 		
 		$car->save();
+		session()->flash('message', 'Новый автомобиль успешно добавлен!');
 		
 		return redirect()->route('cars.index');
     }
@@ -102,15 +103,22 @@ class AdmCarsController extends Controller
 			'tonnage' => 'required|numeric|max:10',
 			'img' => 'required|max:255'
 		]);
-
-		$car->number = $request->number;
-		$car->model = $request->model;
-		$car->condition = $request->condition;
-		$car->mileage = $request->mileage;
-		$car->tonnage = $request->tonnage;
-		$car->img = $request->img;
-		
-		$car->save();
+				
+		if (count(Car::where('number', '=', $request->number)->where('id', '<>', $id)->get()) != 0){
+			session()->flash('message', 'Данный номерной знак уже используется!');
+			return redirect()->route('cars.edit', $id);
+		}
+		else{
+			$car->number = $request->number;
+			$car->model = $request->model;
+			$car->condition = $request->condition;
+			$car->mileage = $request->mileage;
+			$car->tonnage = $request->tonnage;
+			$car->img = $request->img;
+			
+			$car->save();
+			session()->flash('message', 'Текущий автомобиль успешно обновлён!');
+		}
 		
 		return redirect()->route('cars.index');
     }
@@ -124,7 +132,10 @@ class AdmCarsController extends Controller
     public function destroy($id)
     {
         $car = Car::find($id);
+		
+		$car->arrivals()->delete();
 		$car->delete();
+		session()->flash('message', 'Текущий автомобиль успешно удалён!');
 		
 		return redirect()->route('cars.index');
     }

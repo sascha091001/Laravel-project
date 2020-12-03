@@ -71,6 +71,7 @@ class AdmUsersController extends Controller
 		}
 		
 		$user->save();
+		session()->flash('message', 'Новый пользователь успешно добавлен!');
 		
 		return redirect()->route('users.index');
     }
@@ -123,25 +124,34 @@ class AdmUsersController extends Controller
 		
         $this->validate($request, [
 			'name' => 'required|max:255',
+			'email' => 'required|email|max:255',
 		]);
 		
 		$user->name = $request->name;
 		$user->type = $request->type;
+		$user->email = $request->email;
 		
-		if ($request->type != 'Водитель'){
-			$user->driver_id = NULL;
+		if (count(User::where('email', '=', $request->email)->where('id', '<>', $id)->get()) != 0){
+			session()->flash('message', 'Данный email уже используется!');
+			return redirect()->route('users.edit', $id);
 		}
-		else {
-			$this->validate($request, [
-				'driver_id' => 'required|numeric'
-			]);
+		else{
+			if ($request->type != 'Водитель'){
+				$user->driver_id = NULL;
+			}
+			else {
+				$this->validate($request, [
+					'driver_id' => 'required|numeric'
+				]);
+				
+				$user->driver_id = $request->driver_id;
+			}
 			
-			$user->driver_id = $request->driver_id;
+			$user->save();
+			session()->flash('message', 'Текущий пользователь успешно обновлён!');
+			
+			return redirect()->route('users.index');
 		}
-		
-		$user->save();
-		
-		return redirect()->route('users.index');
     }
 
     /**
@@ -155,6 +165,8 @@ class AdmUsersController extends Controller
         $user = User::find($id);
 		$user->reviews()->delete();
 		$user->delete();
+		session()->flash('message', 'Текущий пользователь успешно удалён!');
+		
 		return redirect()->route('users.index');
     }
 }

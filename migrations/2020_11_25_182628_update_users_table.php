@@ -15,7 +15,7 @@ class UpdateUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->integer('driver_id')->unsigned()->nullable();
-			$table->foreign('driver_id')->references('id')->on('drivers');
+			$table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
         });
     }
 

@@ -16,7 +16,6 @@ class CreateReviewsTable extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('driver_id')->unsigned();
-			$table->integer('user_id');
 			$table->string('text');
 			$table->timestamps();
 			$table->foreign('driver_id')->references('id')->on('drivers');

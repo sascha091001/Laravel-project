@@ -49,7 +49,6 @@ class AdmArrivalsController extends Controller
 			'date_of_departure' => 'required|date'
 		]);
 		
-		
 		$arrival = new Arrival;
 		$arrival->car_id = $request->car_id;
 		$arrival->driver_id = $request->driver_id;
@@ -62,6 +61,7 @@ class AdmArrivalsController extends Controller
 		}
 		
 		$arrival->save();
+		session()->flash('message', 'Новая поездка успешно добавлена!');
 		
 		return redirect()->route('arrivals.index');
     }
@@ -110,7 +110,7 @@ class AdmArrivalsController extends Controller
 			'route_id' => 'required|numeric',
 			'date_of_departure' => 'required|date'
 		]);
-		
+				
 		$arrival = Arrival::find($id);
 		
 		$arrival->car_id = $request->car_id;
@@ -124,6 +124,7 @@ class AdmArrivalsController extends Controller
 		}
 		
 		$arrival->save();
+		session()->flash('message', 'Текущая поездка успешно обновлена!');
 		
 		return redirect()->route('arrivals.index');
     }
@@ -138,6 +139,7 @@ class AdmArrivalsController extends Controller
     {
         $arrival = Arrival::find($id);
 		$arrival->delete();
+		session()->flash('message', 'Текущая поездка успешно удалена!');
 		
 		return redirect()->route('arrivals.index');
     }

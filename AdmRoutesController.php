@@ -40,7 +40,7 @@ class AdmRoutesController extends Controller
 			'route_from' => 'required|max:30',
 			'route_where' => 'required|max:30',
 			'full_route' => 'required|max:255',
-			'distance' => 'required|numeric|max:1000',
+			'distance' => 'required|numeric|max:10000',
 		]);
 		
 		$route = new Route;
@@ -51,6 +51,7 @@ class AdmRoutesController extends Controller
 		$route->distance = $request->distance;
 		
 		$route->save();
+		session()->flash('message', 'Новый маршрут успешно обновлён!');
 		
 		return redirect()->route('routes.index');
     }
@@ -104,6 +105,7 @@ class AdmRoutesController extends Controller
 		$route->distance = $request->distance;
 		
 		$route->save();
+		session()->flash('message', 'Текущий маршрут успешно обновлён!');
 		
 		return redirect()->route('routes.index');
     }
@@ -120,6 +122,7 @@ class AdmRoutesController extends Controller
 		
 		$route->arrivals()->delete();
 		$route->delete();
+		session()->flash('message', 'Текущий маршрут успешно удалён!');
 		
 		return redirect()->route('routes.index');
     }

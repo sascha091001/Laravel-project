@@ -26,9 +26,9 @@ class UpdateReviewsTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-			$table->dropColumn('user_id');
+        Schema::table('reviews', function (Blueprint $table) {
 			$table->dropForeign('reviews_user_id_foreign');
+			$table->dropColumn('user_id');
         });
     }
 }

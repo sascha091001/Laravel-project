@@ -34,6 +34,7 @@
 					  <footer class="blockquote-footer text-right mt-4"> Автотранспортная компания <cite title="Название источника"> ООО АВАЛОН </cite></footer>
 					</blockquote>
 				</div>
+			</div>
 		</div>
 	</div>
 	

@@ -52,6 +52,7 @@ class AdmReviewsController extends Controller
 		$review->text = $request->text;
 		
 		$review->save();
+		session()->flash('message', 'Текущий отзыв успешно добавлен!');
 		
 		return redirect()->route('reviews.index');
     }
@@ -107,6 +108,7 @@ class AdmReviewsController extends Controller
 		$review->text = $request->text;
 		
 		$review->save();
+		session()->flash('message', 'Текущий отзыв успешно обновлён!');
 		
 		return redirect()->route('reviews.index');
     }
@@ -121,6 +123,7 @@ class AdmReviewsController extends Controller
     {
 		$review = Review::find($id);
 		$review->delete();
+		session()->flash('message', 'Текущий отзыв успешно удалён!');
 		
 		return redirect()->route('reviews.index');
     }

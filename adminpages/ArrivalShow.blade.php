@@ -7,10 +7,7 @@
 @section('content')
 	<div class = "container">
 		<div class = "row">
-			<div class = "col-3">
-			</div>
-				
-			<div class = "col-6 mt-4" style = "margin:0 auto">
+			<div class = "col-9 mt-4" style = "padding-left: 25%">
 				<img src = "https://mignews.com/aimages/05_17/210517_211232_60495_2.jpg" width = "100%">	
 				
 				<div class = "mt-4">

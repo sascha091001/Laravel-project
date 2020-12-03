@@ -46,6 +46,7 @@ class ReviewController extends Controller
 		$review->user_id = $request->user_id;
 		
 		$review->save();
+		session()->flash('message', 'Новый отзыв успешно добавлен!');
 		
 		return redirect()->route('showDriverInfo', $review->driver_id);
     }
@@ -91,6 +92,7 @@ class ReviewController extends Controller
 		$review->text = $request->text;
 		 
 		$review->save();
+		session()->flash('message', 'Текущий отзыв успешно обновлён!');
 		
 		return redirect()->route('showDriverInfo', $review->driver_id);
     }
@@ -105,6 +107,7 @@ class ReviewController extends Controller
     {
         $review = Review::find($id);
 		$review->delete();
+		session()->flash('message', 'Текущий отзыв успешно удалён!');
 		
 		return redirect()->route('showDriverInfo', $review->driver_id);
     }

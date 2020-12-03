@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Driver;
+use App\User;
 
 class AdmDriversController extends Controller
 {
@@ -41,16 +42,27 @@ class AdmDriversController extends Controller
 			'birthday' => 'required|date',
 			'experience' => 'required|numeric|max:50',
 			'salary' => 'required|numeric|max:100000',
+			'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6|confirmed'
 		]);
 		
 		$driver = new Driver;
-		
 		$driver->FIO = $request->FIO;
 		$driver->birthday = $request->birthday;
 		$driver->experience = $request->experience;
 		$driver->salary = $request->salary;
 		
 		$driver->save();
+		
+		$user = new User;
+		$user->name = $request->name;
+		$user->email = $request->email;
+		$user->password = bcrypt($request->password);
+		$user->type = 'Водитель';
+		
+		$driver->user()->save($user);
+		session()->flash('message', 'Новый водитель и аккаунт успешно добавлены!');
 		
 		return redirect()->route('drivers.index');
     }
@@ -104,6 +116,7 @@ class AdmDriversController extends Controller
 		$driver->salary = $request->salary;
 		
 		$driver->save();
+		session()->flash('message', 'Текущий водитель успешно обновлён!');
 		
 		return redirect()->route('drivers.index');
     }
@@ -118,8 +131,16 @@ class AdmDriversController extends Controller
     {
         $driver = Driver::find($id);
 		
+		if ($driver->user){
+			$driver->user->reviews()->delete();
+		}
+		
+		$driver->user()->delete();
 		$driver->reviews()->delete();
+		
 		$driver->delete();
+		session()->flash('message', 'Текущий водитель успешно удалён!');
+		
 		return redirect()->route('drivers.index');
     }
 }

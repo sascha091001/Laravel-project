@@ -31,8 +31,9 @@ class MainController extends Controller
 	public function showDriver($id)
     {
         $driver = Driver::find($id);
+		$arrivals = $driver->arrivals->sortByDesc('date_of_departure')->take(5);
 		$reviews = Review::where('driver_id', '=', $id)->paginate(4);
-		return view('userpages.showDriver', ['driver' => $driver, 'reviews' => $reviews]);
+		return view('userpages.showDriver', ['driver' => $driver, 'reviews' => $reviews, 'arrivals' => $arrivals]);
     }
 	
 	public function showRoute($id)
@@ -52,20 +53,4 @@ class MainController extends Controller
         $car = Car::find($id);
 		return view('userpages.showCar', ['car' => $car]);
     }
-	
-	public function indexArrivals()
-    {
-        $arrivals = Arrival::all();
-		return view('userpages.arrivals', ['arrivals' => $arrivals]);
-    }
-	
-	public function showArrival($id)
-    {
-        $arrival = Arrival::find($id);
-		return view('userpages.showArrival', ['arrival' => $arrival]);
-    }
-	
-	public function admin(){
-		return view('adminpages.welcome');
-	}
 }
