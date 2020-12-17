@@ -48,22 +48,29 @@ class AdmArrivalsController extends Controller
 			'route_id' => 'required|numeric',
 			'date_of_departure' => 'required|date'
 		]);
-		
-		$arrival = new Arrival;
-		$arrival->car_id = $request->car_id;
-		$arrival->driver_id = $request->driver_id;
-		$arrival->route_id = $request->route_id;
-		$arrival->date_of_departure = $request->date_of_departure;
-		if (empty($request->date_of_arrival)){
-			$arrival->date_of_arrival = NULL;
-		}else{
-			$arrival->date_of_arrival = $request->date_of_arrival;
-		}
-		
-		$arrival->save();
-		session()->flash('message', 'Новая поездка успешно добавлена!');
-		
-		return redirect()->route('arrivals.index');
+        
+        if ($request->date_of_departure > $request->date_of_arrival){
+            session()->flash('message', 'Ошибка! Дата отправки не может быть позже даты прибытия!');  
+            return redirect()->route('arrivals.create');
+        }
+        else{
+            $arrival = new Arrival;
+            $arrival->car_id = $request->car_id;
+            $arrival->driver_id = $request->driver_id;
+            $arrival->route_id = $request->route_id;
+            $arrival->date_of_departure = $request->date_of_departure;
+
+            if (empty($request->date_of_arrival)){
+                $arrival->date_of_arrival = NULL;
+            }else{
+                $arrival->date_of_arrival = $request->date_of_arrival;
+            }
+            
+            $arrival->save();
+            session()->flash('message', 'Новая поездка успешно добавлена!');
+            
+            return redirect()->route('arrivals.index');
+        }
     }
 
     /**
@@ -110,23 +117,29 @@ class AdmArrivalsController extends Controller
 			'route_id' => 'required|numeric',
 			'date_of_departure' => 'required|date'
 		]);
-				
-		$arrival = Arrival::find($id);
-		
-		$arrival->car_id = $request->car_id;
-		$arrival->driver_id = $request->driver_id;
-		$arrival->route_id = $request->route_id;
-		$arrival->date_of_departure = $request->date_of_departure;
-		if (empty($request->date_of_arrival)){
-			$arrival->date_of_arrival = NULL;
-		}else{
-			$arrival->date_of_arrival = $request->date_of_arrival;
-		}
-		
-		$arrival->save();
-		session()->flash('message', 'Текущая поездка успешно обновлена!');
-		
-		return redirect()->route('arrivals.index');
+        
+        if ($request->date_of_departure > $request->date_of_arrival){
+            session()->flash('message', 'Ошибка! Дата отправки не может быть позже даты прибытия!');  
+            return redirect()->route('arrivals.edit', $id);
+        }
+        else{
+            $arrival = Arrival::find($id);
+            
+            $arrival->car_id = $request->car_id;
+            $arrival->driver_id = $request->driver_id;
+            $arrival->route_id = $request->route_id;
+            $arrival->date_of_departure = $request->date_of_departure;
+            if (empty($request->date_of_arrival)){
+                $arrival->date_of_arrival = NULL;
+            }else{
+                $arrival->date_of_arrival = $request->date_of_arrival;
+            }
+            
+            $arrival->save();
+            session()->flash('message', 'Текущая поездка успешно обновлена!');
+            
+            return redirect()->route('arrivals.index');
+        }
     }
 
     /**

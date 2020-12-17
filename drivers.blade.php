@@ -1,4 +1,3 @@
-  <!-- resources/views/tasks.blade.php -->
 @extends('layouts.app')
 
 @section('title')
@@ -7,68 +6,62 @@
 
 @section('content')
 
-  <!-- Bootstrap шаблон... -->
- <div class = "container">
-  <!-- TODO: Текущие задачи -->
+ 	<div class = "container mt-5" style = "min-height: 514px">
+		@if (count($drivers) > 0)
+			<div class = "card mt-5 text-white bg-dark">
+				<div class = "card-header dark">
+					<h2 class = "text-center"> Водители </h2>
+				</div>
+			</div>
+			
+			<div class = "table-responsive">
+				<table class="table table-striped">
+					<thead class="thead-light">
+						<tr class = "text-center">
+							<th>ФИО</th>
+							<th>Опыт, лет</th>
+							<th>Отзывы</th>
+						</tr>
+					</thead>
 
-  <!-- Форма создания задачи... -->
-
-  <!-- Текущие задачи -->
-  @if (count($drivers) > 0)
-    <div class = "container mt-5">
-		<h2 class = "text-center mb-5"> Водители </h2>
+					<tbody>
+						@foreach ($drivers as $driver)
+							<tr class = "text-center">
+								<td> 
+									<h6> <a href = "{{route('showDriverInfo', [$driver->id])}}"> {{ $driver->FIO }} </a> </h6>
+								</td>
+												
+								<td>
+									<p> <b> {{ $driver->experience }} </b> </p>
+								</td>
+								
+								<td>
+									<span class="badge badge-primary badge-pill"> {{ count($driver->reviews) }} </span>
+								</td>
+							</tr>
+						@endforeach
+					</tbody>
+				</table>
+			</div>
 		
-        <table class="table table-striped task-table">
-			<thead class="thead-dark">
-				<tr class = "text-center">
-					<th>ФИО</th>
-					<th>Дата рождения</th>
-					<th>Опыт, лет</th>
-					<th>Отзывы</th>
-				</tr>
-			</thead>
+			{{ $drivers->links('userpages.paginate') }}
+		@else
+			<div class= "alert alert-danger"> На текущий момент водителей нет! </div>
+		@endif
+ 	</div>
+  
+	<style>
+		body{
+			background-image: url(https://avatanplus.com/files/resources/original/5b88ffcc57cde1658f273648.jpg);
+		}
 
-          <tbody>
-            @foreach ($drivers as $driver)
-              <tr class = "text-center">
-				<td> 
-					<div> <a href = "{{route('showDriverInfo', [$driver->id])}}"> {{ $driver->FIO }} </a> </div>
-				</td>
-				
-				<td>
-					<p> <b> {{ $driver->birthday }} </b> </p>
-				</td>
-				
-				<td>
-					<p> <b> {{ $driver->experience }} </b> </p>
-				</td>
-				
-				<td>
-					<span class="badge badge-primary badge-pill"> {{ count($driver->reviews) }} </span>
-				</td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
-		
-		{{ $drivers->links('userpages.paginate') }}
-  </div>
-  
-  <style>
-	td{
-		border: 1px solid black;
-		background-color: white;
-	}
+		tr.text-center {
+			background-color: rgb(255, 255, 255);
+		}
+
+		tr:nth-child(2n) {
+			background-color: rgb(220, 220, 220);
+		}
 	
-	th{
-		border: 1px solid black;
-	}
-	
-	body{
-		background-image: url(https://img1.akspic.ru/image/109219-tekstura-belye-liniya-uzor-stena-1920x1080.jpg);
-		<!--background-image: url(http://rebeccagordongroup.org/site/wp-content/uploads/2012/08/RGGWebBackground.png);-->
-	}
-  
-  </style>
-   @endif
+	</style>
 @endsection

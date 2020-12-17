@@ -163,7 +163,12 @@ class AdmUsersController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-		$user->reviews()->delete();
+
+        foreach ($user->reviews as $review){
+            $review->user_id = NULL;
+            $review->save();
+        }
+
 		$user->delete();
 		session()->flash('message', 'Текущий пользователь успешно удалён!');
 		

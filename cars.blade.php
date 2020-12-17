@@ -5,52 +5,58 @@
 @endsection
 
 @section('content')
-	<div class = "container mt-5">
-		<h2 class = "text-center mb-5"> Автомобили </h2>
-		
-		@if(count($cars) > 0)
-			<table class="table table-striped task-table">
-				<thead class="thead-dark">
-					<tr class = "text-center">
-						<th>Номерной знак</th>
-						<th>Модель</th>
-					</tr>
-				</thead>
 
-			  <tbody>
-				@foreach ($cars as $car)
-				  <tr class = "text-center">
-					<td> 
-						<div> <a href = "{{route('showCarInfo', [$car->id])}}"> {{ $car->number }} </a> </div>
-					</td>
-					
-					<td>
-						<p> <b> {{ $car->model }} </b> </p>
-					</td>
-				  </tr>
-				@endforeach
-			  </tbody>
-			</table>
+	<div class = "container mt-5" style = "min-height: 514px">		
+		@if(count($cars) > 0)
+
+			<div class = "card mt-5 text-white bg-dark">
+				<div class = "card-header dark">
+					<h2 class = "text-center"> Автомобили </h2>
+				</div>
+			</div>
+
+			<div class = "table-responsive">
+				<table class="table table-striped task-table">
+					<thead class="thead-light">
+						<tr class = "text-center">
+							<th>Номерной знак</th>
+							<th>Модель</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						@foreach ($cars as $car)
+							<tr class = "text-center">
+								<td> 
+									<h6> <a href = "{{route('showCarInfo', [$car->id])}}"> {{ $car->number }} </a> </h6>
+								</td>
+								
+								<td>
+									<p> <b> {{ $car->model }} </b> </p>
+								</td>
+							</tr>
+						@endforeach
+					</tbody>
+				</table>
+			</div>
+
+			{{ $cars->links('userpages.paginate') }}
 		@else
-			Нет авто
+			<div class= "alert alert-danger"> На текущий момент автомобилей нет! </div>
 		@endif
-		
-		{{ $cars->links('userpages.paginate') }}
 	</div>
 	
 	<style>
-		td{
-			border: 1px solid black;
-			background-color: white;
-		}
-		
-		th{
-			border: 1px solid black;
-		}
-	
 		body{
-			background-image: url(https://img1.akspic.ru/image/109219-tekstura-belye-liniya-uzor-stena-1920x1080.jpg);
-			<!--background-image: url(http://rebeccagordongroup.org/site/wp-content/uploads/2012/08/RGGWebBackground.png);-->
+			background-image: url(https://avatanplus.com/files/resources/original/5b88ffcc57cde1658f273648.jpg);
+		}
+
+		tr.text-center {
+			background-color: rgb(255, 255, 255);
+		}
+
+		tr:nth-child(2n) {
+			background-color: rgb(220, 220, 220);
 		}
 	</style>
 @endsection

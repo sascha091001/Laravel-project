@@ -6,80 +6,114 @@
 
 @section('content')
 
-  @if (count($users) > 0)
-    <div class = "container mt-5">
-		<h2 class = "text-center mb-5"> Пользователи</h2>
+<div class = "container mt-5" style = "min-height: 530px">
+  	@if (count($users) > 0)
+		@if (Session::has('message'))
+			<div class = "alert alert-primary mt-3"> {{ Session::get('message') }} </div>
+		@endif
+
+		<div class = "card mt-5 text-white bg-dark">
+			<div class = "card-header dark">
+				<h2 class = "text-center"> Пользователи </h2>
+			</div>
+		</div>
 		
-        <table class="table table-striped task-table">
-			<thead class="thead-dark">
-				<tr class = "text-center">
-					<th>Имя</th>
-					<th>Почта</th>
-					<th>Тип</th>
-					<th>Действия</th>
-				</tr>
-			</thead>
+		<div class = "table-responsive">
+			<table class="table table-striped">
+				<thead class="thead-light">
+					<tr class = "text-center">
+						<th>Имя</th>
+						<th>Почта</th>
+						<th>Тип</th>
+						<th>Действия</th>
+					</tr>
+				</thead>
 
-          <tbody>
-            @foreach ($users as $user)
-              <tr class = "text-center">				
-				<td>
-					<p> <b> {{ $user->name }} </b> </p>
-				</td>
-				
-				<td>
-					<p class = "text-success"> <b> {{ $user->email }} </b> </p>
-				</td>
-				
-				<td>
-					<p> <b> {{ $user->type }} </b> </p>
-				</td>
+				<tbody>
+					@foreach ($users as $user)
+						<tr class = "text-center">		
+							<td>
+								<p> <b> {{ $user->name }} </b> </p>
+							</td>
+							
+							<td>
+								<p class = "text-danger"> <b> {{ $user->email }} </b> </p>
+							</td>
+							
+							<td>
+								<p> <b> {{ $user->type }} </b> </p>
+							</td>
 
-				<td>
-					<a href = "{{ route('users.show', $user->id) }}" class = "btn btn-success"> См. </a>
-					<a href = "{{ route('users.edit', $user->id) }}" class = "btn btn-warning"> Обн. </a>
-					<form action="{{route('users.destroy', $user->id)}}" method="POST" style = "display: contents">
-						{{ csrf_field() }}
-						{{ method_field('DELETE') }}
+							<td>
+								<a class = "btn p-0">
+									<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-eye mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" onclick="location.href='{{route('users.show', $user->id)}}'">
+										<path fill-rule="evenodd" d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.134 13.134 0 0 0 1.66 2.043C4.12 11.332 5.88 12.5 8 12.5c2.12 0 3.879-1.168 5.168-2.457A13.134 13.134 0 0 0 14.828 8a13.133 13.133 0 0 0-1.66-2.043C11.879 4.668 10.119 3.5 8 3.5c-2.12 0-3.879 1.168-5.168 2.457A13.133 13.133 0 0 0 1.172 8z"/>
+										<path fill-rule="evenodd" d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+									</svg>
+								</a>
 
-						<button type="submit" class="btn btn-danger">
-							<i class="fa fa-search"></i>Удал.
-						</button>
-					</form>
-				</td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
-	@endif
-	
-	<div class = "row">
-			<div class = "col-6">
+								<a class = "btn p-0">
+									<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-pencil-square mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" onclick="location.href='{{route('users.edit', $user->id)}}'">
+										<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
+										<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"></path>
+									</svg>
+								</a>
+								
+								<form action = "{{ route('users.destroy', $user->id) }}" method = "POST" style = "display: inline">
+									{{ csrf_field() }}
+									{{ method_field('DELETE') }}
+									
+									<button type = "submit" class = "p-0">
+										<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+											<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+											<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+										</svg>
+									</button>
+								</form>
+							</td>
+						</tr>
+					@endforeach
+				</tbody>
+			</table>
+		</div>
+
+		<div class = "row">
+			<div class = "col-md-6 col-12">
 				{{ $users->links('userpages.paginate') }}
 			</div>
 			
-			<div class = "col-6">
-				<a href = "{{ route('users.create') }}" class = "btn btn-primary" style = "float: right"> Добавить пользователя </a>
+			<div class = "col-md-6 col-12">
+				<a href = "{{ route('users.create') }}" class = "btn btn-primary form-control"> Добавить пользователя </a>
 			</div>
 		</div>
-	</div>
-  </div>
-  
-  <style>
-	td{
-		border: 1px solid black;
-		background-color: white;
-	}
-	
-	th{
-		border: 1px solid black;
-	}
-	
+	@else
+		<div class= "alert alert-danger"> На текущий момент пользователей, кроме Вас, нет! </div>
+
+		<a class = "btn btn-primary form-control" href = "{{ route('users.create') }}"> Добавить пользователя </a>
+	@endif
+</div>
+
+<style>
 	body{
-		background-image: url(https://img1.akspic.ru/image/109219-tekstura-belye-liniya-uzor-stena-1920x1080.jpg);
-		<!--background-image: url(http://rebeccagordongroup.org/site/wp-content/uploads/2012/08/RGGWebBackground.png);-->
+		background-image: url(https://avatanplus.com/files/resources/original/5b88ffcc57cde1658f273648.jpg);
 	}
-  
-  </style>
+
+	tr.text-center {
+		background-color: rgb(255, 255, 255);
+	}
+
+	tr:nth-child(2n) {
+		background-color: rgb(220, 220, 220);
+	}
+
+	form > button{
+		background-color: Transparent;
+		background-repeat:no-repeat;
+		border: none;
+		cursor:pointer;
+		overflow: hidden;
+	}
+	
+</style>
 
 @endsection

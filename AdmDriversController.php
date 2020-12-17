@@ -130,12 +130,18 @@ class AdmDriversController extends Controller
     public function destroy($id)
     {
         $driver = Driver::find($id);
+
+        foreach ($driver->user->reviews as $review){
+            $review->user_id = NULL;
+            $review->save;
+        }
+        
+        foreach ($driver->arrivals as $arrival){
+            $arrival->driver_id = NULL;
+            $arrival->save();
+        }
 		
-		if ($driver->user){
-			$driver->user->reviews()->delete();
-		}
-		
-		$driver->user()->delete();
+        $driver->user()->delete();
 		$driver->reviews()->delete();
 		
 		$driver->delete();

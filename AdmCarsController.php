@@ -132,11 +132,16 @@ class AdmCarsController extends Controller
     public function destroy($id)
     {
         $car = Car::find($id);
-		
-		$car->arrivals()->delete();
-		$car->delete();
-		session()->flash('message', 'Текущий автомобиль успешно удалён!');
-		
-		return redirect()->route('cars.index');
+        //dd($car->arrivals);
+
+        foreach ($car->arrivals as $arrival){
+            $arrival->car_id = NULL;
+            $arrival->save();
+        }
+       
+        $car->delete();
+        session()->flash('message', 'Текущий автомобиль успешно удалён!');
+        
+        return redirect()->route('cars.index');
     }
 }

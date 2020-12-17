@@ -8,6 +8,9 @@
 @section('content')
 
 <div class = "container">
+	@if (Session::has('message'))
+		<div class = "alert alert-danger mt-3"> {{ Session::get('message') }} </div>
+	@endif
 	<div class = "row">
 		<div class = "col-12">
 			<h1 class = "text-center"> Автотранспортная компания <span class = "text-danger"> "Авалон" </span> </h1>
@@ -16,7 +19,7 @@
 	
 	<div class = "row">
 		<div class = "col-md-7 mt-3">
-			<p> <img src = "https://www.riakchr.ru/upload/iblock/d41/d41d951ab6b68a4dbfe0f875057504ca.jpg" width = "100%"> </p>
+			<p> <img src = "https://za.kzn.ru/upload/iblock/f33/DEN_7036.jpg" width = "100%"> </p>
 		</div>
 		
 		<div class = "col-md-5 mt-3">
@@ -31,6 +34,7 @@
 					  <footer class="blockquote-footer text-right mt-4"> Автотранспортная компания <cite title="Название источника"> ООО АВАЛОН </cite></footer>
 					</blockquote>
 				</div>
+			</div>
 		</div>
 	</div>
 	
@@ -44,14 +48,14 @@
 		<div class = "col-md-4 col-12 mb-4">
 			<div class = "bg-danger">
 				<h5 class = "text-white text-center mb-4 pt-4" style = "font-family:COURIER"> Особая забота о наших клиентах </h5>
-				<img src = "https://avatars.mds.yandex.net/get-zen_doc/118284/pub_5c33360262248c00aa87388f_5c333939cffc6400aaecf4e1/scale_1200"; width = "100%">
+				<img src = "https://kolesa-uploads.ru/-/01672cc5-8271-4030-bd59-73d1f40c49f3/13055170-1528121357496433-5716482272073762673-o.jpg"; width = "100%">
 			</div>
 		</div>
 		
 		<div class = "col-md-4 col-12 mb-4">
 			<div class = "bg-danger">
 				<h5 class = "text-white text-center mb-4 pt-4" style = "font-family:COURIER"> Качественное выполнение работы </h5>
-				<img src = "https://solreg.ru/upload/iblock/bf3/bf3c83422ce7b776386dd75e1f63df05.jpg" width = "100%">
+				<img src = "https://a.d-cd.net/6d26ef6s-1920.jpg" width = "100%">
 			</div>
 		</div>
 		

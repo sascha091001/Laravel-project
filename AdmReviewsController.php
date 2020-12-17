@@ -17,7 +17,7 @@ class AdmReviewsController extends Controller
     public function index()
     {
         $reviews = Review::paginate(5);
-		return view('adminpages.reviews', ['reviews' => $reviews]);
+		    return view('adminpages.reviews', ['reviews' => $reviews]);
     }
 
     /**
@@ -27,8 +27,8 @@ class AdmReviewsController extends Controller
      */
     public function create()
     {
-		$users = User::all();
-		$drivers = Driver::all();
+        $users = User::all();
+        $drivers = Driver::all();
         return view('adminpages.ReviewCreate', ['drivers' => $drivers, 'users' => $users]);
     }
 
@@ -40,21 +40,21 @@ class AdmReviewsController extends Controller
      */
     public function store(Request $request)
     {
-		$this->validate($request, [
-			'text' => 'required|max:255',
-			'user_id' => 'required|numeric',
-			'driver_id' => 'required|numeric'
-		]);
-		
-		$review = new Review;
-		$review->driver_id = $request->driver_id;
-		$review->user_id = $request->user_id;
-		$review->text = $request->text;
-		
-		$review->save();
-		session()->flash('message', 'Текущий отзыв успешно добавлен!');
-		
-		return redirect()->route('reviews.index');
+        $this->validate($request, [
+          'text' => 'required|max:255',
+          'user_id' => 'required|numeric',
+          'driver_id' => 'required|numeric'
+        ]);
+        
+        $review = new Review;
+        $review->driver_id = $request->driver_id;
+        $review->user_id = $request->user_id;
+        $review->text = $request->text;
+        
+        $review->save();
+        session()->flash('message', 'Текущий отзыв успешно добавлен!');
+        
+        return redirect()->route('reviews.index');
     }
 
     /**
@@ -65,9 +65,9 @@ class AdmReviewsController extends Controller
      */
     public function show($id)
     {
-		$review = Review::find($id);
-		
-		return view('adminpages.ReviewShow', ['review' => $review]);
+        $review = Review::find($id);
+        
+        return view('adminpages.ReviewShow', ['review' => $review]);
     }
 
     /**
@@ -80,10 +80,10 @@ class AdmReviewsController extends Controller
     {
         $review = Review::find($id);
 		
-		$users = User::all()->where('id', '<>', $review->user_id);
-		$drivers = Driver::all()->where('id', '<>', $review->driver_id);
-		
-		return view('adminpages.ReviewUpdate', ['review' => $review, 'users' => $users, 'drivers' => $drivers]);
+        $users = User::all()->where('id', '<>', $review->user_id);
+        $drivers = Driver::all()->where('id', '<>', $review->driver_id);
+        
+        return view('adminpages.ReviewUpdate', ['review' => $review, 'users' => $users, 'drivers' => $drivers]);
     }
 
     /**
@@ -95,22 +95,22 @@ class AdmReviewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-		$review = Review::find($id);
-		
-		$this->validate($request, [
-			'text' => 'required|max:255',
-			'user_id' => 'required|numeric',
-			'driver_id' => 'required|numeric'
-		]);
-		
+        $review = Review::find($id);
+        
+        $this->validate($request, [
+          'text' => 'required|max:255',
+          'user_id' => 'required|numeric',
+          'driver_id' => 'required|numeric'
+        ]);
+        
         $review->driver_id = $request->driver_id;
-		$review->user_id = $request->user_id;
-		$review->text = $request->text;
-		
-		$review->save();
-		session()->flash('message', 'Текущий отзыв успешно обновлён!');
-		
-		return redirect()->route('reviews.index');
+        $review->user_id = $request->user_id;
+        $review->text = $request->text;
+        
+        $review->save();
+        session()->flash('message', 'Текущий отзыв успешно обновлён!');
+        
+        return redirect()->route('reviews.index');
     }
 
     /**
@@ -121,10 +121,10 @@ class AdmReviewsController extends Controller
      */
     public function destroy($id)
     {
-		$review = Review::find($id);
-		$review->delete();
-		session()->flash('message', 'Текущий отзыв успешно удалён!');
-		
-		return redirect()->route('reviews.index');
+        $review = Review::find($id);
+        $review->delete();
+        session()->flash('message', 'Текущий отзыв успешно удалён!');
+        
+        return redirect()->route('reviews.index');
     }
 }

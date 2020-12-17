@@ -119,8 +119,12 @@ class AdmRoutesController extends Controller
     public function destroy($id)
     {
         $route = Route::find($id);
-		
-		$route->arrivals()->delete();
+
+        foreach ($route->arrivals as $arrival){
+            $arrival->route_id = NULL;
+            $arrival->save();
+        }
+
 		$route->delete();
 		session()->flash('message', 'Текущий маршрут успешно удалён!');
 		

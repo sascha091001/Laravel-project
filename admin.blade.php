@@ -13,6 +13,7 @@
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+	<link rel="shortcut icon" href="http://pictures.std-1056.ist.mospolytech.ru/bus.ico">
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
@@ -28,6 +29,9 @@
 		  </button>
 		  <div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav mr-auto">
+			  <li class="nav-item active">
+				<a class="nav-link" href="{{ url('/') }}"> Домашняя страница <span class="sr-only">(current)</span></a>
+			  </li>
 			  <li class="nav-item">
 					<a class="nav-link" href = "{{ route('drivers.index') }}"> Водители </a>
 			  </li>
@@ -54,28 +58,23 @@
                         <li><a class="nav-link" href="{{ url('/login') }}">Войти</a></li>
                         <li><a class="nav-link" href="{{ url('/register') }}">Зарегистрироваться</a></li>
                     @else
-                        <div class="btn-group">
-							<div class="btn-group dropleft" role="group">
-								<button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								  <span class="sr-only">Toggle Dropleft</span>
-								</button>
-								<div class="dropdown-menu">
-									@if (Auth::user())
-										<p class = "text-danger ml-4"> <b> {{ Auth::user()->type }} </b> </p>
-										<hr>
-									@endif
-									<a class= "dropdown-item" href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        Выйти
-                                    </a>
-
-                                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-										{{ csrf_field() }}
-                                    </form>
-								</div>
-							</div>
-							<button type="button" class="btn btn-secondary">
+						<div class="dropleft">
+							<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								{{ Auth::user()->name }}
 							</button>
+							<div class="dropdown-menu">
+								@if (Auth::user())
+									<p class = "text-danger ml-4"> <b> {{ Auth::user()->type }} </b> </p>
+									<hr>
+								@endif
+								<a class= "dropdown-item" href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+									Выйти
+								</a>
+
+								<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+									{{ csrf_field() }}
+								</form>
+							</div>
 						</div>
                     @endif
                 </ul>
@@ -233,8 +232,9 @@ a:hover {
 .logo-part {
     border-right: 1px solid grey;
     height: 100%;
-    }
-	</style>
+}
+
+</style>
 	
 </body>
 </html>

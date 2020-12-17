@@ -18,6 +18,10 @@ class MainController extends Controller
 	
     public function indexDrivers()
     {
+        //$a = url()->current();
+        //$last = explode("/", $a, 4);
+        //dd($last);
+
         $drivers = Driver::paginate(5);
 		return view('userpages.drivers', ['drivers' => $drivers]);
     }
